@@ -1,5 +1,6 @@
 import challonge
 import gspread
+import json
 from oauth2client.service_account import ServiceAccountCredentials
 from pprint import pprint
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
@@ -7,14 +8,18 @@ creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
 
 client = gspread.authorize(creds)
 print("Welcome to my program!")
-# Tell pychallonge about your [CHALLONGE! API credentials](http://api.challonge.com/v1).
-challonge.set_credentials("gabru22", "1efPkjbTMb6LotjvOjbplXKpDZlPHcp44bkBBJss")
 
-#Tid = (input("Enter the challonge tournament ID: ")) #jfaaprm5
+challongecreds = open('challonge.json',)
+data = json.load(challongecreds)
+
+# Tell pychallonge about your [CHALLONGE! API credentials](http://api.challonge.com/v1).
+challonge.set_credentials(data["user"],data["key"])
+
+Tid = (input("Enter the challonge tournament ID: ")) #jfaaprm5
 print("Please share the google sheet with the email: sartaj@tourney-329922.iam.gserviceaccount.com")
-#filename = input("Enter the name of your google sheet: ")
-filename = "tracker"
-#sheetname = input("Enter the specific sheet name\nAn example would be 'sheet1' or 'sheet2': ")
+filename = input("Enter the name of your google sheet: ")
+#filename = "tracker"
+sheetname = input("Enter the specific sheet name\nAn example would be 'sheet1' or 'sheet2': ")
 sheetname = "hey"
 sheet = client.open(filename).worksheet(sheetname)  # Open the spreadhseet
 data = sheet.get_all_records()  # Get a list of all records
