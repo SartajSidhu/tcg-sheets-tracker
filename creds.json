@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tourney-329922",
+  "private_key_id": "20daef9f7621d62299f3dcacea82a53e06006aff",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCGL7DlWukGBVqq\n66N8HsQ2HQdOsc97KV0yDZtbI317LpgTMN7XlS5MrnAj/rvTU12w1j15gToU5xvo\nvHj+xfXJxFb1JYZW+VfM7yGpHu9h8dQpyz/TP2Be6lk8fSjclE6KFXE5XgNpnAWS\ny8Se/fgBnsVGP4FX2wlDR2isTIxqONPtp/FxhGGjTQDtwc+Hi+wNbXJDw+BxcyFr\n26jEhNQzNti5z4FjJkMf/l/hbFlbLec43EF/PS6HUIaF5Z2KaauuflQ9HRMBGMyc\np5fdXdoPTwQ9zxUItBbU/hVVxBDtCTySMVe5QoOTb+2MBVZ6iWPv6ha8SV0dqYRK\nraaK7IO9AgMBAAECggEAFK/ShjFjPk3iAfqs7Aw0NKF6CGxKL9MbLoXBfyX0COMQ\nh9jfaf3yMtkrqajyXOx7w7Drrkk5YpKUj2dLAgAT2eS+gTGlSdBL9GijWFbQEdn9\n2umeL9uT6F4ZnsUu4P6uMwSGPZFcVlI627w1VkuSCfHnuOI+dwRqI6ilHvb4KMHb\n5mLTKLrKlgRuHNUs3vx/Ahvu8RdO4FGqP7xUyYw7z71k7fvQNkQ2E2GPuQy0R24N\nGdwWGbh+uGCJugiIx/8omIlb3SqRFdvdU74h3DGU6CfMGG/MJCCcqsjHC4S4OC0p\nk85v+t1AcNTuDjTI57IAMhLygA8MnTKxXA89gYK34wKBgQC8j/aKt8XVnnpm/ASZ\n5luv0qtfMxEKNI0M+96fSLPUVGB3B1JcOsE8PtLeoEXMIzbv1UnDoKLaAUnDOqdH\nFYLv31D0soRsroVh27efka/cZzhu+kyrJNjKQABtlSGLaQj2A0vARgWApqBj5fGh\njpcZwiIe93ITsUqu+WdFrYrmvwKBgQC2LURO9RYraSwkROProGtCfDt6ofddGEje\nuVOXGXRn/yNKQ0z14CIgZHD9tfJiss5zVLG4si7wBkrRRBD5pMdMv7wqqS5DRDko\nwj5JSstXkwPDb5MSPGsYmq45yrMs0s3yyth42N/2pZOuGzervLtfeSuEm9Fg9LFE\nqGivHTOQgwKBgBefKVGDaCM0sTzJgYIOG5pRF+rbKN1QbAMeYmst3mlREKyYnDa1\nnZOAg0YkadoC51TwMUdyjjQlSSpN5LrA9SA7p5af7nr2+fqiXcR9qbxAqg8tCAHA\noe/kSKlxrzwZsmevTgQOQY42UY1yNuz4QfGWIlQix4W0BhkZYViXPvldAoGANnuz\nQinqR3Fc0jwILh/79BZTc4mdASqSIIoshbQHLFMRqtQV4DL4AdgIMtiHdR0kwTlD\nLYmcoAxBs/Q3X3H4aOuuytNuEpAEyDvPhPvpdHdzWK+1vG51WRZppL8Kdw1Uqpgf\nxYSW9pzuXdOmAqafIx6J9U7kf6qumWoEZNrG4SECgYAWjvgAhBl+kWdYuoBGIISN\ns/2wlANFoUgLzMt9lvs5i5XxcZkJrSW5Wdif9NCs3dzJTQ7dp7/dGZGjT94ZFSNy\nyVW6VBfhGXSFAItegSTPtLtC673y4jBCK8+5HpESDsjyJZvEqE3P4iV3o6JTDhfD\nwNDenD42ZUMJB19LmmIJ2w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "sartaj@tourney-329922.iam.gserviceaccount.com",
+  "client_id": "103283884864295015186",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sartaj%40tourney-329922.iam.gserviceaccount.com"
+}

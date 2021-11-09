@@ -1,0 +1,48 @@
+{% extends "base.html" %} {%block title %}TCG sheets tracker{% endblock %} {% block content %}
+<form method = "POST">
+	<h3 align="center">TCG sheets tracker</h3>
+	<div class = "form-group">
+		<label for="Google sheet">Please share your google sheet with the email below:</label>
+		<br>
+		<label for="email">sartaj@tourney-329922.iam.gserviceaccount.com</label>
+	</div>
+
+	<div class = "form-group">
+		<label for="challongeID">Challonge tournament ID</label>
+		<input type="challongeID"
+			class="form-control"
+			id="challongeID"
+			name="challongeID"
+			placeholder="Enter your Challonge tournament ID" 
+		/>
+	</div>
+
+	<div class = "form-group">
+		<label for="googlesheet">Google sheet name</label>
+		<input type="googlesheet"
+			class="form-control"
+			id="googlesheet"
+			name="googlesheet"
+			placeholder="Enter the name of your google sheet (located in the top left corner of your sheet)" 
+		/>
+	</div>
+
+	<div class = "form-group">
+		<label for="sheetname">Specific sheet name</label>
+		<input type="sheetname"
+			class="form-control"
+			id="sheetname"
+			name="sheetname"
+			placeholder="Enter the name of the specific sheet you would like to store your data in (located at bottom of your sheet)" 
+		/>
+	</div>
+	<br>
+	<button type="Execute" class="btn btn-primary">Add tournament results</button>
+	
+
+
+
+
+
+</form>
+{% endblock %}

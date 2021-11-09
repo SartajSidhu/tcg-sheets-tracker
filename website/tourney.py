@@ -3,13 +3,101 @@ import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 from pprint import pprint
-scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+
+
+
+def sheetSetup(jsonName,scope,filename,sheetname):
+	creds=ServiceAccountCredentials.from_json_keyfile_name(jsonName, scope)
+	client = gspread.authorize(creds)
+	sheet = client.open(filename).worksheet(sheetname)
+	#data = sheet.get_all_records()
+	return sheet
+
+def chalSetup(jsonName,Tid):
+	creds = open(jsonName)
+	data = json.load(creds)
+	challonge.set_credentials(data["user"],data["key"])
+	tournament = challonge.tournaments.show(Tid)
+	return tournament
+
+
+def addResults(sheet,tourney):
+	decks = sheet.col_values(1) #get first column for names of decks 
+	numOfDecks = len(decks)
+
+	participants = challonge.participants.index(tourney["id"]) #holds all data of all participants within the challonge tournament
+	numOfParticipants = len(participants) #number of people in tournament 
+	matches = challonge.matches.index(tourney["id"]) #holds all matches data
+	numOfMatches = len(matches) #number of matches in the tournament
+
+	players = [[],[],[],[]] #player array to hold Names,Wins,Losses, and ties of each participant
+
+	# create the list a 2d list for names wins losses and ties with all 0 values
+	for x in range(4):
+		for j in range(numOfParticipants):
+			players[x].append(0)
+
+	# add names of participants to first list of the list
+	for x in range(numOfParticipants):
+		players[0][x]=(participants[x]["name"])
+
+	#for loop for each match to find results and add to players 		
+	for x in range(numOfMatches): 
+	#check if there is a draw for the current match
+		if(matches[x]["scores_csv"]=="1-1" or matches[x]["scores_csv"]=="0-0" or matches[x]["scores_csv"]=="2-2"):
+			draw1 = challonge.participants.show(tourney["id"],matches[x]["player1_id"])
+			draw2 = challonge.participants.show(tourney["id"],matches[x]["player2_id"])
+			#find the players who had a draw and add to their tie value
+			for y in range(numOfParticipants): 
+				if(players[0][y]==draw2["name"] or players[0][y]==draw1["name"] ):
+					players[3][y]+=1
+		else:
+			#find the winner and loser of the current match
+			winner = challonge.participants.show(tourney["id"],matches[x]["winner_id"]) 
+			loser = challonge.participants.show(tourney["id"],matches[x]["loser_id"])	
+			#loop through the player list
+			for y in range(numOfParticipants):
+				if(players[0][y]==winner["name"]): #find the winner 
+					players[1][y]+=1 #add a win
+				elif(players[0][y]==loser["name"]): #find the loser 
+					players[2][y]+=1 #add a loss
+
+	#now all wins losses and ties have been added to the player array
+	#now to add them to the googlesheet
+	insheet = False #flag to check if the current players name or deck is already within the sheet
+	for j in range(numOfParticipants):	
+		inSheet = False
+		for i in range(numOfDecks): #nested loop to check each player deck name with each sheet deck name 
+			if(decks[i].lower()==players[0][j].lower()): #check if equal
+				
+				#retrieve current values inside sheet 
+				win = int(sheet.cell(i+1,2).value)
+				loss = int(sheet.cell(i+1,3).value)
+				draw = int(sheet.cell(i+1,4).value)
+
+				#update sheet adding on to the old values
+				sheet.update_cell(i+1,2,players[1][j]+win)
+				sheet.update_cell(i+1,3,players[2][j]+loss)
+				sheet.update_cell(i+1,4,players[3][j]+draw)
+				
+				inSheet = True #set flag to true since it was in the sheet
+		
+		if(inSheet == False):	#if it wasnt in the sheet 
+			sheet.append_row([players[0][j],players[1][j],players[2][j],players[3][j]]) #Create a new row for the new deck with all data
+
+
+
+
+
+
+
+'''scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
 
 client = gspread.authorize(creds)
 print("Welcome to my program!")
 
-challongecreds = open('challonge.json',)
+challongecreds = open('challonge.json')
 data = json.load(challongecreds)
 
 # Tell pychallonge about your [CHALLONGE! API credentials](http://api.challonge.com/v1).
@@ -54,7 +142,7 @@ print(tournament["name"]) # My Awesome Tournament
 # Retrieve the participants for a given tournament.
 participants = challonge.participants.index(tournament["id"])
 #pprint(participants)
-print(len(participants)) # 4
+#print(len(participants)) # 4
 numOfParticipants = len(participants) #size of tournament
 players = [[],[],[],[]] # list of players:names,wins,losses
 
@@ -75,7 +163,7 @@ numOfMatches = len(matches)
 for x in range(numOfMatches): #for loop for each match
 	
 	#check if there is a draw for the current match
-	if(matches[x]["scores_csv"]=="1-1" or matches[x]["scores_csv"]=="0-0"):
+	if(matches[x]["scores_csv"]=="1-1" or matches[x]["scores_csv"]=="0-0" or matches[x]["scores_csv"]=="2-2"):
 		draw1 = challonge.participants.show(tournament["id"],matches[x]["player1_id"])
 		draw2 = challonge.participants.show(tournament["id"],matches[x]["player2_id"])
 		for y in range(numOfParticipants): 
@@ -129,4 +217,4 @@ print("Tournament results have been added to your sheet!")
 # of the change.
 #challonge.tournaments.start(tournament["id"])
 #tournament = challonge.tournaments.show(tournament["id"])
-#print(tournament["started_at"]) # 2011-07-31 16:16:02-04:00
+#print(tournament["started_at"]) # 2011-07-31 16:16:02-04:00'''
