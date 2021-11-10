@@ -21,14 +21,26 @@ def home():
 		Tid = request.form.get('challongeID')
 		filename = request.form.get('googlesheet')
 		sheetname = request.form.get('sheetname')
+		flag = True
+		flag2=True
+		try:
+			tournament = chalSetup(challongejson,Tid)
+		except:
+			flag = False
+			flash("You did not enter a valid challonge tournament ID",category="error")
+		try:
+			sheet = sheetSetup(sheetjson,scope,filename,sheetname)
+		except:
+			flag2 = False
+			flash("You either did not share the sheet with the email, entered an incorrect sheetname, or entered an incorrect specific sheetname",category="error")
+		if(flag==True and flag2==True):
+			addResults(sheet,tournament)
 
-		sheet = sheetSetup(sheetjson,scope,filename,sheetname)
-		tournament = chalSetup(challongejson,Tid)
-		addResults(sheet,tournament)
-		if(len(Tid)>1 and len(filename)>1 and len(sheetname)>1):
+		
+		#if(len(Tid)>1 and len(filename)>1 and len(sheetname)>1):
 			flash("The tournament results have been added to "+filename, category="success")
 		else:
-			flash("Your inputs are invalid",category="error")
+			flash("Please fix the mistakes, visit the help page if needed.",category="error")
 		
 
 	return render_template("home.html")
