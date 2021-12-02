@@ -48,13 +48,13 @@ def addResults(sheet,tourney):
 		p2 = challonge.participants.show(tourney["id"],matches[x]["player2_id"])
 	#check if there is a draw for the current match
 		if(matches[x]["scores_csv"]=="1-1" or matches[x]["scores_csv"]=="0-0"):
-			
+			tieVal = int(matches[x]["scores_csv"][0]) # gets first value of scores, since it is a draw both polayers will get the win and the tie
 			#find the players who had a draw and add to their tie value
 			for y in range(numOfParticipants): 
 				if(players[0][y]==p2["name"] or players[0][y]==p1["name"] ):
 					players[3][y]+=1 #adding tie to each player
-					players[1[y]]+=matches[x]["scores_csv"][0] #adding each wins to player
-					players[2[y]]+=matches[x]["scores_csv"][0] #adding each losses to player
+					players[1][y]+=tieVal #adding each wins to player
+					players[2][y]+=tieVal #adding each losses to player
 
 		else:
 			#find the winner and loser of the current match
@@ -62,8 +62,8 @@ def addResults(sheet,tourney):
 			loser = challonge.participants.show(tourney["id"],matches[x]["loser_id"])
 			
 			#variables to hold amount of wins by each player
-			winVal = matches[x]["scores_csv"][0]
-			lossVal = matches[x]["scores_csv"][2]
+			winVal = int(matches[x]["scores_csv"][0])
+			lossVal = int(matches[x]["scores_csv"][2])
 			temp = 0 #to switch vals if incorrect
 			if(winVal<lossVal): #makes wins the greater value since (winner should have more wins)
 				temp = winVal
@@ -101,3 +101,5 @@ def addResults(sheet,tourney):
 		
 		if(inSheet == False):	#if it wasnt in the sheet 
 			sheet.append_row([players[0][j],players[1][j],players[2][j],players[3][j]]) #Create a new row for the new deck with all data
+
+
